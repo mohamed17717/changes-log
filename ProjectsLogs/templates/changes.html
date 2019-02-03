@@ -1,0 +1,31 @@
+<!-- this file just to dont repeat myself -->
+
+<ul>
+    <li>
+        {{change.name}}: {{change.explain}}
+        {% if change.accepted %}
+            <span style="color:green;">(accepted)</span>
+        {% else %}
+            <span style="color:red;">(refused)</span>
+        {% endif %}
+
+        <br>
+
+        <div style="padding-top: 30px ">
+        {% with change.user_notes.all as comments %}
+        {% for comment in comments %}
+            content: {{comment.content}} <br>
+            content_created: {{comment.comment_created}} <br> <br>
+            replay: {{comment.replay}}<br>
+            replay_created: {{comment.replay_created}} <br>
+            seen: {{comment.seen}}<br>
+        {% endfor %}
+        <form action="{% url 'projects:submit_comment' change.kind change.pk %}" method="POST">
+            {% csrf_token %}
+            <textarea name="{{comment_field.content.name}}" cols="40" rows="2"></textarea>
+            <input type="submit" value="comment">
+        </form>
+        {% endwith %}
+        </div>
+    </li>
+</ul>

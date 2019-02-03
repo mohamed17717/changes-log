@@ -1,0 +1,87 @@
+<!-- files used in whole projects -->
+{% include "base.html" %}
+
+<style>
+        #adminstration-pg > .users{
+            float: left;
+            width: 50%;
+        }
+
+        #adminstration-pg > .projects{
+            float: right;
+            width: 50%;
+        }
+
+        #adminstration-pg::after{
+            content: "";
+            display: block;
+            width: 100%;
+            clear: both;
+        }
+</style>
+
+<div id="adminstration-pg" class="container">
+    <div id="create-user">
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="UserName">
+            <input type="submit" value="Add-User">
+        </form>
+        <div id="password">{{password}}</div>
+    </div>
+
+    <div id="search">
+        <form method="post">
+            {% csrf_token %}
+            <input type="search" name="search">
+            <select name="search-type">
+                <option value="project">Project</option>
+                <option value="user">User</option>
+            </select>
+            <input type="submit" value="search">
+        </form>
+    </div>
+
+    <div id="search-output">
+        
+        {% if search_type == 'project' %}   
+            <h3>Search Result: Projects</h3>
+            {% for project in search_response %}
+                <a href="{% url 'projects:project' project.slug %}">
+                    {{project.project_name}}
+                </a>
+                <br>
+            {% endfor %}
+        {% elif search_type == 'user' %}
+            <h3>Search Result: Users</h3>
+            {% for profile in search_response %}
+                <a href="{% url 'profiles:profile' profile.slug %}">
+                    {{profile.user.username}} 
+                </a>
+                <br>
+            {% endfor %}
+        {% endif %}
+
+        <br> <br>
+    </div>
+
+    <div class="users">
+        <h3>All Users</h3>
+        {% for profile in profiles %}
+            <a href="{% url 'profiles:profile' profile.slug %}">
+                {{profile.user.username}} 
+            </a>
+            <br>
+        {% endfor %}
+    </div>
+        
+    <div class="projects">
+        <h3>All Projects</h3>
+        {% for project in projects %}
+            <a href="{% url 'projects:project' project.slug %}">
+                {{project.project_name}}
+            </a>
+            <br>
+        {% endfor %}
+    </div>
+</div>

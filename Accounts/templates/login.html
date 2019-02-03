@@ -1,0 +1,11 @@
+<!-- files used in whole projects -->
+{% include "base.html" %}
+
+<form class="form" method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="username" placeholder="Username"/>
+    <input type="password" name="password" placeholder="Password" />
+
+    <input class="btn btn-primary" type="submit" value="Login">
+</form>

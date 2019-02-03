@@ -1,0 +1,72 @@
+<!-- files used in whole projects -->
+{% include "base.html" %}
+
+<style>
+
+    #create-project{}
+    #create-project form{
+        width: 100%
+    }
+
+    #create-project input[type="text"],
+    #create-project textarea{
+        width: 100%;
+        padding: 6px 12px;
+    }
+
+    #create-project textarea{
+        height: 5em;
+    }
+
+    #create-project form > div{
+        margin-bottom: 2em;
+    }
+
+    #create-project form > div:nth-of-type(3),
+    #create-project form > div:nth-of-type(4){
+        display: inline-block;
+        width: 45%;
+    }
+    #create-project form > div:nth-of-type(4)::after{
+        content: "";
+        display: block;
+        width: 100%;
+    }
+
+    #create-project form > div:nth-last-of-type(1),
+    #create-project form > div:nth-last-of-type(2),
+    #create-project form > div:nth-last-of-type(3){
+        display: inline-block;
+        border-left: 2px solid #333;
+        padding-left: 10px;
+        width: 30%;
+    }
+
+    #create-project input[type="submit"]{
+        display: block;
+        width: 100%;
+    }
+
+</style>
+<div id="create-project" class="container">
+    <div class="row center-text">
+        <h3>Create Project.</h3>
+    </div>
+    <div class="row">
+        <form method="POST">
+            {% csrf_token %}
+            
+            
+            {% for field in add_project_form %}
+                <div>
+                    <div>
+                        {{field.label}}
+                    </div>
+                    {{field}}
+                </div>
+            {% endfor %}
+
+            <input class="btn" type="submit" value="Add">
+        </form>
+    </div>
+</div>

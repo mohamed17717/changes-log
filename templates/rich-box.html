@@ -1,0 +1,104 @@
+<style>
+    #rich-box{
+        border: 1px solid black;
+    }
+
+    #rich-box #btns{
+        margin: 6px 12px;
+    }
+
+    #rich-box #btns button{
+        border: 0;
+        background-color: transparent;
+        color: #a7a7a7;
+        width: 30px;
+        height: 40px;
+    }
+
+    #rich-box #btns > button:hover{
+        color: #333;
+    }
+
+    #rich-box textarea{
+        width: 100%
+    }
+
+    #rich-box code, code{
+        background-color: #CCC;
+        padding: 2px 6px;
+        margin: 0 2px;
+    }
+
+    
+</style>
+
+<div id="rich-box">
+    <div id="type-area">
+        <div id="btns">
+            <button id="code">{}</button>
+            <button id="bold">B</button>
+        </div>
+        <textarea></textarea>
+    </div>
+    <br> <br>
+    <div id="live-view"></div>
+</div>
+
+<script>
+    // helper functions
+    function setSelectionRange(input, selectionStart, selectionEnd) {
+        if (input.setSelectionRange) {
+            input.focus();
+            input.setSelectionRange(selectionStart, selectionEnd);
+        }
+        else if (input.createTextRange) {
+            var range = input.createTextRange();
+            range.collapse(true);
+            range.moveEnd('character', selectionEnd);
+            range.moveStart('character', selectionStart);
+            range.select();
+        }
+    }
+
+    function setCaretToPos (input, pos) {
+        setSelectionRange(input, pos, pos);
+    }
+
+    function BtnInsertTag(tag){
+        oldVal = $(textarea).val()
+        
+        $(textarea)
+        .val(`${oldVal}<${tag}></${tag}>`)
+        .trigger('keyup')
+        .focus()
+
+        setCaretToPos($(textarea)[0], oldVal.length + `<${tag}>`.length);
+    }
+
+    // selectors
+    var parent      = '#rich-box',
+        typeArea    = `${parent} #type-area`,
+        textarea    = `${typeArea} textarea`,
+        insertCode  = `${typeArea} #btns #code`,
+        insertBold  = `${typeArea} #btns #bold`,
+        liveView    = `${parent} #live-view`;
+
+
+    $(textarea).val('')
+    // events
+
+    // event on text area to make live view
+    $(textarea).keyup((e)=>{
+        $(liveView).html( $(e.target).val() )
+    })
+
+    // btns
+    $(insertCode).click(()=>{
+        BtnInsertTag('code');
+    })
+
+    $(insertBold).click(()=>{
+        BtnInsertTag('strong');
+    })
+
+</script>

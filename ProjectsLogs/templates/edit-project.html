@@ -1,0 +1,228 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="{% static 'edit-project.js' %}"></script>
+
+
+<div class="container">
+    <!-- title -->
+    <div class="row">
+        <h1 id="project-name" class="title center-text">{{project.project_name}}</h1>
+    </div>
+
+    <!-- brief -->
+    <div class="row">
+        <div id="project-brief" class="text">
+            {{project.breif}}
+        </div>
+    </div>
+
+    <!-- chck boxs -->
+    <div class="row">
+        <div class="check-box">
+            <input type="checkbox" name="worked-on" id="worked-on" {% if project.under_work %}checked="checked"{%endif%}>
+            <label for="worked-on">Worked On</label>
+        </div>
+
+        <div class="check-box">
+            <input type="checkbox" name="can-try" id="can-try" {% if project.can_try %}checked="checked"{%endif%}>
+            <label for="can-try">Can Try</label>
+        </div>
+        
+        <div class="check-box">
+            <input type="checkbox" name="finished" id="finished" {% if project.finished %}checked="checked"{%endif%}>
+            <label for="finished">Finished</label>            
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div id="area-of-add-version" class="row">
+        <button id="add-version" class="btn">Add Version</button>
+    </div>
+
+    <div class="row" id="version-form">
+        <div class="row">
+            <div class="title">Add Version.</div>
+        </div>
+
+        <div class="row">
+            <input type="text" placeholder="Version Number" id="number-of-new-version" required>
+
+            <div class="check-box">
+                <input type="checkbox" name="cretical" id="cretical">
+                <label for="cretical">Cretical</label>
+            </div>
+    
+            <div class="check-box">
+                <input type="checkbox" name="combitable" id="combitable">
+                <label for="combitable">Combitable</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <label>Choose Change Type : </label>
+            <div id="select-box-container">
+                <select name="change-type" id="change-types">
+                    <option id="temp" value="" selected="selected">------------</option>
+                    <option value="added">Added</option>
+                    <option value="removed">Removed</option>
+                    <option value="changed">Changed</option>
+                    <option value="deprecated">Deprecated</option>
+                    <option value="fixed">Fixed</option>
+                    <option value="security">Security</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- select box output -->
+        <div id="added" class="row">
+            <div style="position:relative">
+                <div class="title">Added</div>
+                <button class="btn get-input-change-from">+</button>
+            </div>
+            <ul>
+            </ul>
+
+            <!-- input a change -->
+            <div id="input-change" class="row input-field">
+                <!--
+                    <input class="full-line" placeholder="Change:" type="text">
+                -->
+                {% include "rich-box.html" %}
+                <button id="submit-change" class="btn">add</button>
+            </div>
+
+        </div>
+    </div>
+
+
+    {% for version in project.project_versions.all reversed %}
+    <div class="row old-version" version-id="{{version.id}}">
+        <div class="version-number title">
+            <span>
+                {{version.version_number}}
+            </span>
+            <span>
+                {% if version.critical_version %}
+                    <input type="checkbox" name="critical" checked>
+                    <span style="color:red; font-size: .4em">(cretical)</span>
+                {% else %}
+                    <input type="checkbox" name="critical">
+                    <span style="color:green; font-size: .4em">(not cretical)</span>
+                {% endif %}
+            </span>
+            <span>
+                {% if version.combitable_with_old_dependencies %}
+                    <input type="checkbox" name="combitable" checked>
+                    <span style="color:green; font-size: .4em">(combitable)</span>
+                {% else %}
+                    <input type="checkbox" name="combitable">
+                    <span style="color:red; font-size: .4em">(not combitable)</span>
+                {% endif %}  
+            </span>
+        </div>
+
+        <div class="version-changes">        
+            {% if version.added.all %}
+            <div class="row">
+                <div style="position:relative">
+                    <div class="change-type">Added</div>
+                    <button class="btn collabse-changes">v</button>
+                    <button class="btn get-input-change-from">+</button>
+                </div>
+                <ul>
+                {% for change in version.added.all %}
+                    <li change-id="{{change.id}}">{{change.name}} {{change.explain}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if version.removed.all %}
+            <div class="row">
+                <div style="position:relative">
+                    <div class="change-type">Removed</div>
+                    <button class="btn collabse-changes">v</button>
+                    <button class="btn get-input-change-from">+</button>
+                </div>
+                <ul>
+                {% for change in version.removed.all %}
+                    <li change-id="{{change.id}}">{{change.name}} {{change.explain}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if version.changed.all %}
+            <div class="row">
+                <div style="position:relative">
+                    <div class="change-type">Changed</div>
+                    <button class="btn collabse-changes">v</button>
+                    <button class="btn get-input-change-from">+</button>
+                </div>
+                <ul>
+                {% for change in version.changed.all %}
+                    <li change-id="{{change.id}}">{{change.name}} {{change.explain}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if version.deprecated.all %}
+            <div class="row">
+                <div style="position:relative">
+                    <div class="change-type">Deprecated</div>
+                    <button class="btn collabse-changes">v</button>
+                    <button class="btn get-input-change-from">+</button>
+                </div>
+                <ul>
+                {% for change in version.deprecated.all %}
+                    <li change-id="{{change.id}}">{{change.name}} {{change.explain}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if version.fixed.all %}
+            <div class="row">
+                <div style="position:relative">
+                    <div class="change-type">Fixed</div>
+                    <button class="btn collabse-changes">v</button>
+                    <button class="btn get-input-change-from">+</button>
+                </div>
+                <ul>
+                {% for change in version.fixed.all %}
+                    <li change-id="{{change.id}}">{{change.name}} {{change.explain}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if version.security.all %}
+            <div class="row">
+                <div style="position:relative">
+                    <div class="change-type">Security</div>
+                    <button class="btn collabse-changes">v</button>
+                    <button class="btn get-input-change-from">+</button>
+                </div>
+                <ul>
+                {% for change in version.security.all %}
+                    <li change-id="{{change.id}}">{{change.name}} {{change.explain}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="row">
+        <form action="{% url 'projects:edit_project' project.slug %}" method="POST">
+            {% csrf_token %}
+            <input id="data" type="hidden" name="data" value="" required>
+            <input type="button" class="btn" value="Save" style="display:block; margin: 50px auto; width:20%;">
+        </form>
+    </div>
+</div>
+

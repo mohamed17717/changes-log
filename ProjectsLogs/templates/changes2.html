@@ -1,0 +1,50 @@
+<li>
+    <span></span>
+    {{change.name}} {{change.explain|safe}}
+</li>
+
+<!-- change comments -->
+<div class="comments" style="display:none;">
+
+    {% with change.user_notes.all as comments %}
+    {% for comment in comments %}
+    <div class="comment">
+        <div class="content">
+            {{comment.content}}
+        </div>
+        <div class="created">
+            {{comment.comment_created}}
+        </div>
+        
+        {% if comment.replay %}
+        <div class="replay">
+            <div class="content">
+                {{comment.replay}}
+            </div>
+            <div class="created">
+                {{comment.replay_created}}
+            </div>
+        </div>
+        {% else %}
+            {% if admin %}
+            <form action="{% url 'projects:submit_comment_replay' comment.id %}" method="POST">
+                {% csrf_token %}
+                <textarea name="content"></textarea>
+                <input class="btn" type="submit" value="Submit Replay">
+            </form>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% endfor %}
+    
+    {% if not admin %}    
+    <form action="{% url 'projects:submit_comment' change.kind change.pk %}" method="POST">
+        {% csrf_token %}
+        <textarea name="content"></textarea>
+        <input class="btn" type="submit" value="Submit Comment">
+    </form>
+    {% endif %}
+        
+    {% endwith %}
+
+</div>

@@ -1,0 +1,279 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<style>
+    ul { 
+        padding: 0;
+    }
+
+    li {
+        list-style: none;
+        position: relative;
+        padding-left: 1.5em;
+    }
+
+    li span {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        content: '+';
+        background: transparent url(https://png.icons8.com/cotton/2x/comments.png) 0 50% no-repeat;
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        background-size: cover;
+        cursor: pointer;
+    }
+
+    .comments .comment {
+        margin-top: 10px;
+        margin-left: 25px;
+        margin-right: 25px;
+        background-color: #EEE;
+        border-radius: 9px;
+        padding: 8px 8px 8px 8px;
+    }
+    .comments .comment .created{
+        font-size: .7em;
+        color: #969696;
+        text-align: right;
+    }
+
+    .comments .comment .replay{
+        padding: 3px 20px;
+        background-color: #fbfbfb;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    .comments form textarea,
+    .comments form .btn{
+        display: block;
+        min-width: 90%;
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .comments form textarea{
+        border: 1px solid #EEE;
+        background-color: #FFF;
+        padding: 15px;
+        min-height: 100px;
+        line-height: 1.28em;
+        margin-top: 50px;
+    }
+</style>
+
+<div class="container">
+    <!-- title -->
+    <div class="row">
+        <h1 id="project-name" class="title center-text">
+            {{project.project_name}}.
+            <span style="font-weight:100; font-size:.4em">
+                (
+                {% if project.finished %}
+                Finished
+                {% else %}
+                    {% if project.under_work %}
+                        Worked On 
+                        {% if project.can_try %}
+                            but you Can Try
+                        {%endif%}
+                    {% else %}
+                        Not Finished and Not Under Work
+                    {%endif%}
+                {%endif%}
+                )
+            </span>
+        </h1>
+        Created: {{project.created| date:'j/M'}}
+    </div>
+
+    <!-- brief -->
+    <div class="row">
+        <div id="project-brief" class="text">
+            {{project.breif}}
+        </div>
+    </div>
+
+    {% for version in project.project_versions.all reversed %}
+    <div class="row old-version">
+        <div class="version-number title">
+            <a href="{{version.github_url | default_if_none:'#'}}">
+                {{version.version_number}}
+            </a>
+            <span style="font-size: .4em">
+                ({{project.created| date:'j/M'}})
+            </span>
+
+            {% if version.critical_version %}
+                <span style="color:red; font-size: .4em">(cretical)</span>
+            {% else %}
+                <span style="color:green; font-size: .4em">(not cretical)</span>
+            {% endif %}
+
+            {% if version.combitable_with_old_dependencies %}
+                <span style="color:green; font-size: .4em">(combitable)</span>
+            {% else %}
+                <span style="color:red; font-size: .4em">(not combitable)</span>
+            {% endif %}
+        </div>
+        
+        <div class="version-changes">        
+            {% if version.added.all %}
+            <div class="row">
+                <div class="change-type">Added</div>
+                <ul>
+                {% for change in version.added.all %}
+                    {% include "changes2.html" %}
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if version.removed.all %}
+            <div class="row">
+                <div class="change-type">Removed</div>
+                <ul>
+                {% for change in version.removed.all %}
+                    {% include "changes2.html" %}
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if version.changed.all %}
+            <div class="row">
+                <div class="change-type">Changed</div>
+                <ul>
+                {% for change in version.changed.all %}
+                    {% include "changes2.html" %}
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if version.deprecated.all %}
+            <div class="row">
+                <div class="change-type">Deprecated</div>
+                <ul>
+                {% for change in version.deprecated.all %}
+                    {% include "changes2.html" %}
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if version.fixed.all %}
+            <div class="row">
+                <div class="change-type">Fixed</div>
+                <ul>
+                {% for change in version.fixed.all %}
+                    {% include "changes2.html" %}
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if version.security.all %}
+            <div class="row">
+                <div class="change-type">Security</div>
+                <ul>
+                {% for change in version.security.all %}
+                    {% include "changes2.html" %}
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- remove not its just for test -->
+    {% if admin %}
+    <a href="{% url 'projects:edit_project' project.slug %}"
+        style="
+            position: fixed;
+            right: 15px;
+            top: 25px;
+            background-color: #ea2b2b;
+            padding: 6px 12px;
+            text-decoration: none;
+            color: #FFF;
+            font-weight: bolder;
+            border-radius: 6px;
+        ">Edit Project
+    </a>
+    {% endif %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script>
+$(()=>{
+    // put event on comment icons
+    var comment_icons = $('ul li span');
+    comment_icons.click((e)=>{
+        elm         = $(e.target);
+        change_text = elm.parent().text()
+        comments    = elm.parent().next('.comments');
+        
+
+        window_cover(
+            // function executed when open
+            ()=>{
+                blank = $('#cover-window');
+                
+                p = $('<p />').text(change_text)
+                
+                clone_comments = comments.clone()
+                clone_comments.css('display', '')
+
+                blank.append(p)
+                blank.append(clone_comments)
+            }, 
+            ()=>{
+
+            }
+        )
+    })
+
+    function window_cover(open, close){
+        // $('body').css('overflow', 'hidden')
+        window.scrollTo(0, 0)
+
+        // create prompt box to take new input from him
+        cover = $('<div />').attr('id', 'cover').css({
+            position: 'fixed',
+            width: '100%',
+            height: '100%',
+            top: 0,
+            left: 0,
+            'background-color': '#212121b8'
+        }).click(()=>{
+            close? close(): '';
+            $('#cover, #cover-window').remove();
+            // $('body').css('overflow', 'auto');
+        });
+
+        blank = $('<div />').attr('id', 'cover-window').css({
+            'width'  : $(window).width()*70/100,
+            'position'   : 'absolute',
+            'left'       : ($(window).width() - $(window).width()*70/100)/2,
+            'top'        : '50%',
+            'transform'  : 'translateY(-50%)',
+            'background-color': '#FFF',
+            'padding'    : '22px 0 22px 22px',
+            'margin-top': '30px',
+            'font-weight': 100,
+        });
+
+        $('body').append(cover)
+        $('body').append(blank);
+
+        open? open(): '';
+    }
+
+})
+</script>
+

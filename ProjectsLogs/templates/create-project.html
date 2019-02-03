@@ -1,0 +1,14 @@
+<!-- files used in whole projects -->
+{% include "base.html" %}
+
+<form method="post">
+    {% csrf_token %}
+    {{form1}}
+    <br> <br>
+    {{form2}}
+    <input type="submit" value="submits">
+</form>
+
+<!--
+{{form2.username.help_text}}
+-->

@@ -1,0 +1,91 @@
+
+{% if admin %}
+    <a href="{% url 'projects:edit_project' project.slug %}">edit project</a>
+{% endif %}
+    
+
+<h1>
+    {{project.project_name}}
+    <span style="font-size: .5em">
+        {{project.created}}
+    </span>
+</h1>
+
+{% with project.project_versions.all as versions %}
+{% for version in versions %}
+    <h3>
+        <a href="{{version.github_url | default_if_none:'#'}}">
+            {{version.version_number}}
+        </a>
+        <span style="font-size:.65em;">
+            {{version.created}}
+            {% if version.critical_version %}
+                <span style="color:red;">(critical)</span>
+            {% endif %}
+            
+            {% if not version.combitable_with_old_dependencies %}
+                <span style="color:red;">(not compitable)</span>
+            {% endif %}
+        </span>
+    </h3>
+    
+    {% with version.added.all as added %}
+        {% if added %}
+            <h3>Added</h3>
+            {% for change in added %}
+                {% include "changes.html" %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% with version.removed.all as removed %}
+        {% if removed %}
+            <h3>Removed</h3>
+            {% for change in removed %}
+                {% include "changes.html" %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% with version.changed.all as changed %}
+        {% if changed %}
+            <h3>Changed</h3>
+            {% for change in changed %}
+                {% include "changes.html" %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% with version.deprecated.all as deprecated %}
+        {% if deprecated %}
+            <h3>Deprecated</h3>
+            {% for change in deprecated %}
+                {% include "changes.html" %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% with version.fixed.all as fixed %}
+        {% if fixed %}
+            <h3>Fixed</h3>
+            {% for change in fixed %}
+                {% include "changes.html" %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% with version.security.all as security %}
+        {% if security %}
+            <h3>Security</h3>
+            {% for change in security %}
+                {% include "changes.html" %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+
+
+
+    
+{% endfor %}
+{% endwith %}

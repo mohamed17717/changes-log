@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <link rel="stylesheet" href="./style.css">
+
+    <div class="container">
+        <!-- title -->
+        <div class="row">
+            <h1 id="project-name" class="title center-text">Project Name.</h1>
+        </div>
+    
+        <!-- brief -->
+        <div class="row">
+            <div id="project-brief" class="text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda expedita veritatis porro sapiente vero aliquid laborum a voluptates itaque officiis, pariatur, voluptatem, facilis ducimus exercitationem debitis perspiciatis omnis explicabo. Ullam!
+            </div>
+        </div>
+    
+        <!-- chck boxs -->
+        <div class="row">
+            <div class="check-box">
+                <input type="checkbox" name="worked-on" id="worked-on">
+                <label for="worked-on">Worked On</label>
+            </div>
+    
+            <div class="check-box">
+                <input type="checkbox" name="can-try" id="can-try">
+                <label for="can-try">Can Try</label>
+            </div>
+            
+            <div class="check-box">
+                <input type="checkbox" name="finished" id="finished">
+                <label for="finished">Finished</label>            
+            </div>
+        </div>
+    
+        <!-- Buttons -->
+        <div class="row">
+            <button id="add-version" class="btn">Add Version</button>
+        </div>
+    
+        <div class="row" id="version-form">
+            <div class="row">
+                <div class="title">Add Version.</div>
+            </div>
+
+            <div class="row">
+                <input type="text" placeholder="Version Number" id="number-of-new-version">
+
+                <div class="check-box">
+                    <input type="checkbox" name="cretical" id="cretical">
+                    <label for="cretical">Cretical</label>
+                </div>
+        
+                <div class="check-box">
+                    <input type="checkbox" name="combitable" id="combitable">
+                    <label for="combitable">Combitable</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <label>Choose Change Type : </label>
+                <div id="select-box-container">
+                    <select name="change-type" id="change-types">
+                        <option id="temp" value="" selected="selected">------------</option>
+                        <option value="added">Added</option>
+                        <option value="removed">Removed</option>
+                        <option value="changed">Changed</option>
+                        <option value="deprecated">Deprecated</option>
+                        <option value="fixed">Fixed</option>
+                        <option value="security">Security</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- select box output -->
+            <div id="added" class="row">
+                <div style="position:relative">
+                    <div class="title">Added</div>
+                    <button class="btn get-input-change-from">+</button>
+                </div>
+                <ul>
+                </ul>
+
+                <!-- input a change -->
+                <div id="input-change" class="row input-field">
+                    <input class="full-line" placeholder="Change:" type="text">
+                    <button id="submit-change" class="btn">add</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row old-version" version-id="19">
+            <div class="version-number title">
+                <span>1.2.13</span>
+                <span>
+                    <input type="checkbox" name="critical" checked>
+                    <span style="color:red; font-size: .4em">(cretical)</span>
+                </span>
+                <span>
+                    <input type="checkbox" name="combitable" value="" checked>                
+                    <span style="color:green; font-size: .4em">(combitable)</span>
+                </span>
+            </div>
+            <div class="version-changes">
+                <div class="row">
+                    <div style="position:relative">
+                        <div class="change-type">Added</div>
+                        <button class="btn collabse-changes">v</button>
+                    </div>
+                   <!-- <div class="change-type">Added</div> -->
+                    <ul>
+                        <li change-id="2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt voluptatum quo id, at ut voluptates! Sint, dolorem reiciendis iste voluptates minima quae inventore earum. Accusamus ratione soluta reprehenderit id voluptate!</li>
+                        <li change-id="3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas, sed quis libero natus amet qui possimus nihil temporibus doloribus tempore sint ex nesciunt ipsa voluptatibus suscipit consectetur repudiandae tempora tenetur!</li>
+                        <li change-id="1">Lorem ipsum dolor sit amet consectetur adipisicing elit. In corporis dicta recusandae architecto harum nobis corrupti molestiae, soluta laborum ipsam quam eveniet rem a autem quos enim doloremque atque maiores.</li>
+                    </ul>
+                </div>
+
+                <div class="row">
+                    <div style="position:relative">
+                        <div class="change-type">Removed</div>
+                        <button class="btn collabse-changes">v</button>
+                    </div>
+
+                    <ul>
+                        <li change-id="9">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt voluptatum quo id, at ut voluptates! Sint, dolorem reiciendis iste voluptates minima quae inventore earum. Accusamus ratione soluta reprehenderit id voluptate!</li>
+                        <li change-id="8">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas, sed quis libero natus amet qui possimus nihil temporibus doloribus tempore sint ex nesciunt ipsa voluptatibus suscipit consectetur repudiandae tempora tenetur!</li>
+                        <li change-id="7">Lorem ipsum dolor sit amet consectetur adipisicing elit. In corporis dicta recusandae architecto harum nobis corrupti molestiae, soluta laborum ipsam quam eveniet rem a autem quos enim doloremque atque maiores.</li>
+                    </ul>
+                </div>
+
+                <div class="row">
+                    <div style="position:relative">
+                        <div class="change-type">Changed</div>
+                        <button class="btn collabse-changes">v</button>
+                    </div>
+                    <ul>
+                        <li change-id="6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt voluptatum quo id, at ut voluptates! Sint, dolorem reiciendis iste voluptates minima quae inventore earum. Accusamus ratione soluta reprehenderit id voluptate!</li>
+                        <li change-id="5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas, sed quis libero natus amet qui possimus nihil temporibus doloribus tempore sint ex nesciunt ipsa voluptatibus suscipit consectetur repudiandae tempora tenetur!</li>
+                        <li change-id="4">Lorem ipsum dolor sit amet consectetur adipisicing elit. In corporis dicta recusandae architecto harum nobis corrupti molestiae, soluta laborum ipsam quam eveniet rem a autem quos enim doloremque atque maiores.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <input type="button" class="btn" value="Save" style="display:block; margin: 50px auto; width:20%;">
+        </div>
+    </div>
+
+    
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="./main.js"></script>
+
+</body>
+</html>
