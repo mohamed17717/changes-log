@@ -131,8 +131,14 @@ def Adminstration(request):
                     user.username = username
                     user.set_password(password)
                     user.save()
+
+                    userProfile = get_object(UserProfile, user=user)
+                    userProfile.p = password
+                    userProfile.save()
                 
                     context.update({'password': password})
+                else:
+                    err_msg(request, 'user already exist')
 
             ## this is search from
             if request.POST.get('search'):

@@ -8,7 +8,8 @@ class UserProfile(models.Model):
     ## fields
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(blank=True)
-    user_projects = models.ManyToManyField("ProjectsLogs.Project")
+    user_projects = models.ManyToManyField("ProjectsLogs.Project", blank=True)
+    p = models.CharField(max_length=100, blank=True, null= True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify('%s' % self.user)

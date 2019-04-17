@@ -15,62 +15,62 @@
     {% endif %}
 
     {% if projects %}
+    <div id="projects">
+        <h4>Projects</h4>
 
-        <div id="projects">
-            <h4>Projects</h4>
-
-            <div class="divTable">
-                <!-- Table header -->
-                <div class="divTableHeading">
-                    <div class="divTableHead">Name</div>
-                    <div class="divTableHead">Created</div>
-                    <div class="divTableHead">Brief</div>
-                    <div class="divTableHead">Coders</div>
-                    <div class="divTableHead">Tech/s</div>
-                    <div class="divTableHead">Versions</div>
-                </div>
-                <div class="divTableBody">
-
-
-                    {% for project in projects %}
-                    <div class="divTableRow {% cycle 'row1' 'row2' %}">
-                        <div class="divTableCell name">
-                            <a href="{% url 'projects:project' project.slug %}">
-                                {{project.project_name}}
-                            </a>
-                        </div>
-                        
-                        <div class="divTableCell created">
-                            {{project.created}}
-                        </div>
-
-                        <div class="divTableCell brief">
-                            {{project.breif}}
-                        </div>
-                        
-                        <div class="divTableCell coders">
-                            {% for coder in project.coders.all %}
-                                <div>{{coder}}</div>
-                            {% endfor %}
-                        </div>
-                        
-                        <div class="divTableCell technologies">
-                            {% for tech in project.technologies.all %}
-                                <div>{{tech}}</div>
-                            {% endfor %}
-                        </div>
-                        
-                        <div class="divTableCell version-count">
-                            {{project.project_versions.count}}
-                        </div>
-                    </div>                
-                    {% endfor %}
-                    
-                </div>
+        <div class="divTable">
+            <!-- Table header -->
+            <div class="divTableHeading">
+                <div class="divTableHead">Name</div>
+                <div class="divTableHead">Created</div>
+                <div class="divTableHead">Brief</div>
+                <div class="divTableHead">Coders</div>
+                <div class="divTableHead">Tech/s</div>
+                <div class="divTableHead">Versions</div>
             </div>
-            <!-- DivTable.com -->
+            <div class="divTableBody">
+
+
+                {% for project in projects %}
+                <div class="divTableRow {% cycle 'row1' 'row2' %}">
+                    <div class="divTableCell name">
+                        <a href="{% url 'projects:project' project.slug %}">
+                            {{project.project_name}}
+                        </a>
+                    </div>
+                    
+                    <div class="divTableCell created">
+                        {{project.created}}
+                    </div>
+
+                    <div class="divTableCell brief">
+                        {{project.breif}}
+                    </div>
+                    
+                    <div class="divTableCell coders">
+                        {% for coder in project.coders.all %}
+                            <div>{{coder}}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="divTableCell technologies">
+                        {% for tech in project.technologies.all %}
+                            <div>{{tech}}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="divTableCell version-count">
+                        {{project.project_versions.count}}
+                    </div>
+                </div>                
+                {% endfor %}
+                
+            </div>
         </div>
-        
+        <!-- DivTable.com -->
+    </div>
+    {% else %}
+    <p style="text-align: center; background-color: #EEE; padding: 12px; border-radius: 15px;">There is no projects yet</p>
     {% endif %} 
 
 </div>    

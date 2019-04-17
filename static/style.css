@@ -200,7 +200,7 @@ code{
 .divTable{
 	display: table;
     width: 100%;
-    border: 1px solid #999999;
+    /* border: 1px solid #999999; */
 }
 .divTableRow {
 	display: table-row;

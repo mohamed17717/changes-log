@@ -1,43 +1,121 @@
 <!-- files used in whole projects -->
 {% include "base.html" %}
 
+
+{% block style %}    
 <style>
-        #adminstration-pg > .users{
-            float: left;
-            width: 50%;
-        }
+#adminstration-pg > .users{
+    float: left;
+    width: 50%;
+}
 
-        #adminstration-pg > .projects{
-            float: right;
-            width: 50%;
-        }
+#adminstration-pg > .projects{
+    float: right;
+    width: 50%;
+}
 
-        #adminstration-pg::after{
-            content: "";
-            display: block;
-            width: 100%;
-            clear: both;
-        }
+#adminstration-pg::after{
+    content: "";
+    display: block;
+    width: 100%;
+    clear: both;
+}
+
+#create-user, 
+#search {
+    width: 40%;
+    min-width: 300px;
+    max-width: 400px;
+    padding: 20px;
+    margin: auto;
+    padding: 15px;
+
+    display: inline-block;
+}
+
+@media (max-width: 800px){
+    #create-user, 
+    #search {
+        display: block !important;
+    }
+}
+
+#create-user input,
+#search input, #search select{
+    border: none;
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    min-width: 100px;
+    margin: auto;
+    text-align: center;
+    font-size: 0.8em;
+    padding: 6px 12px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+#create-user input[type="text"], 
+#search input[type="search"]{
+    box-shadow: 0px 2px 5px -2px #CCC;
+}
+
+#create-user input[type="submit"],
+#search input[type="submit"]{
+    background-color: #173ff5;
+    color: #FFF;
+    font-weight: bolder;
+    letter-spacing: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+
+}
+
+#search div{
+    display: flex;
+}
+
+#search div input{
+    width: 100%;
+    max-width: none;
+}
+#search div select{
+    width: 86px;
+    min-width: 86px;
+    max-width: 86px;
+
+    cursor: pointer;
+}
+
+input{
+    outline: 0;
+}
+
 </style>
+{% endblock style %}
+    
 
+{% block content %}    
 <div id="adminstration-pg" class="container">
     <div id="create-user">
         <form method="post">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="UserName">
+            <input autocomplete="off" type="text" name="username" placeholder="UserName">
             <input type="submit" value="Add-User">
         </form>
-        <div id="password">{{password}}</div>
+        <!-- <div id="password">{{password}}</div> -->
     </div>
 
     <div id="search">
         <form method="post">
             {% csrf_token %}
-            <input type="search" name="search">
-            <select name="search-type">
-                <option value="project">Project</option>
-                <option value="user">User</option>
-            </select>
+            <div>
+                <input autocomplete="off" type="search" name="search" placeholder="Search">
+                <select name="search-type">
+                    <option value="project">Project</option>
+                    <option value="user">User</option>
+                </select>
+            </div>
             <input type="submit" value="search">
         </form>
     </div>
@@ -69,8 +147,9 @@
         <h3>All Users</h3>
         {% for profile in profiles %}
             <a href="{% url 'profiles:profile' profile.slug %}">
-                {{profile.user.username}} 
-            </a>
+                {{profile.user.username}}
+            </a>:
+            <span>{{ profile.p }}</span>
             <br>
         {% endfor %}
     </div>
@@ -85,3 +164,4 @@
         {% endfor %}
     </div>
 </div>
+{% endblock content %}

@@ -1,11 +1,46 @@
-<!-- files used in whole projects -->
-{% include "base.html" %}
+{% extends 'base.html' %}
 
-<form class="form" method="POST">
-    {% csrf_token %}
+{% load static %}
 
-    <input type="text" name="username" placeholder="Username"/>
-    <input type="password" name="password" placeholder="Password" />
 
-    <input class="btn btn-primary" type="submit" value="Login">
-</form>
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock style %}
+
+
+
+{% block content %}
+<div id="form">
+    <h1>Sign in</h1>
+
+    <form class="form" method="POST">
+        {% csrf_token %}
+
+        
+        <div class="input-group">
+            <div class="icon"><i class="fas fa-user"></i></div>
+            <input type="text" autocomplete="off" placeholder="Username" name="username" />
+        </div>
+        <div class="input-group">
+            <div class="icon"><i class="fas fa-key"></i></div>
+            <input type="password" placeholder="Password" name="password" />
+        </div>
+
+        <div class="link">
+            <a href="#">Forgot password?</a>
+        </div>
+
+        <div class="note">
+            <p>only our clients have an account.</p>
+            <p><a href="#">contact us</a> to make one.</p>
+        </div>
+
+        <button type="submit">Login</button>
+    </form>
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock script %}
