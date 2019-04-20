@@ -2,6 +2,10 @@
 
 Make the clients following to the project changes
 
+## Live Demo
+
+you can check out a live demo [of it here!](https://h-changeslog-5qt8mm16v6.herokuapp.com/) hosted on [heroku](https://heroku.com)
+
 ## Getting Started
 
 ### Prerequisites
