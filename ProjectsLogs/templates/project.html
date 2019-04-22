@@ -1,4 +1,7 @@
+{% extends "base.html" %}
 
+
+{% block content %}   
 {% if admin %}
     <a href="{% url 'projects:edit_project' project.slug %}">edit project</a>
 {% endif %}
@@ -89,3 +92,6 @@
     
 {% endfor %}
 {% endwith %}
+
+{% endblock content %}
+

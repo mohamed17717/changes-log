@@ -1,4 +1,8 @@
+{% extends "base.html" %}
 {% load static %}
+
+
+{% block style %}    
 <link rel="stylesheet" href="{% static 'style.css' %}">
 
 <style>
@@ -64,6 +68,9 @@
         margin-top: 50px;
     }
 </style>
+{% endblock style %}
+
+{% block content %}    
 
 <div class="container">
     <!-- title -->
@@ -196,7 +203,7 @@
         style="
             position: fixed;
             right: 15px;
-            top: 25px;
+            bottom: 25px;
             background-color: #ea2b2b;
             padding: 6px 12px;
             text-decoration: none;
@@ -207,7 +214,11 @@
     </a>
     {% endif %}
 </div>
+{% endblock content %}
 
+
+
+{% block script %}    
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script>
 $(()=>{
@@ -276,4 +287,8 @@ $(()=>{
 
 })
 </script>
+{% endblock script %}
+
+
+
 

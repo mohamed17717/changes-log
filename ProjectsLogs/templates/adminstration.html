@@ -1,95 +1,95 @@
 <!-- files used in whole projects -->
-{% include "base.html" %}
+{% extends "base.html" %}
 
 
 {% block style %}    
 <style>
-#adminstration-pg > .users{
-    float: left;
-    width: 50%;
-}
+    #adminstration-pg > .users{
+        float: left;
+        width: 50%;
+    }
 
-#adminstration-pg > .projects{
-    float: right;
-    width: 50%;
-}
+    #adminstration-pg > .projects{
+        float: right;
+        width: 50%;
+    }
 
-#adminstration-pg::after{
-    content: "";
-    display: block;
-    width: 100%;
-    clear: both;
-}
+    #adminstration-pg::after{
+        content: "";
+        display: block;
+        width: 100%;
+        clear: both;
+    }
 
-#create-user, 
-#search {
-    width: 40%;
-    min-width: 300px;
-    max-width: 400px;
-    padding: 20px;
-    margin: auto;
-    padding: 15px;
-
-    display: inline-block;
-}
-
-@media (max-width: 800px){
     #create-user, 
     #search {
-        display: block !important;
+        width: 40%;
+        min-width: 300px;
+        max-width: 400px;
+        padding: 20px;
+        margin: auto;
+        padding: 15px;
+
+        display: inline-block;
     }
-}
 
-#create-user input,
-#search input, #search select{
-    border: none;
-    display: block;
-    width: 100%;
-    max-width: 200px;
-    min-width: 100px;
-    margin: auto;
-    text-align: center;
-    font-size: 0.8em;
-    padding: 6px 12px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
+    @media (max-width: 800px){
+        #create-user, 
+        #search {
+            display: block !important;
+        }
+    }
 
-#create-user input[type="text"], 
-#search input[type="search"]{
-    box-shadow: 0px 2px 5px -2px #CCC;
-}
+    #create-user input,
+    #search input, #search select{
+        border: none;
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        min-width: 100px;
+        margin: auto;
+        text-align: center;
+        font-size: 0.8em;
+        padding: 6px 12px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
 
-#create-user input[type="submit"],
-#search input[type="submit"]{
-    background-color: #173ff5;
-    color: #FFF;
-    font-weight: bolder;
-    letter-spacing: 5px;
-    border-radius: 20px;
-    cursor: pointer;
+    #create-user input[type="text"], 
+    #search input[type="search"]{
+        box-shadow: 0px 2px 5px -2px #CCC;
+    }
 
-}
+    #create-user input[type="submit"],
+    #search input[type="submit"]{
+        background-color: #173ff5;
+        color: #FFF;
+        font-weight: bolder;
+        letter-spacing: 5px;
+        border-radius: 20px;
+        cursor: pointer;
 
-#search div{
-    display: flex;
-}
+    }
 
-#search div input{
-    width: 100%;
-    max-width: none;
-}
-#search div select{
-    width: 86px;
-    min-width: 86px;
-    max-width: 86px;
+    #search div{
+        display: flex;
+    }
 
-    cursor: pointer;
-}
+    #search div input{
+        width: 100%;
+        max-width: none;
+    }
+    #search div select{
+        width: 86px;
+        min-width: 86px;
+        max-width: 86px;
 
-input{
-    outline: 0;
-}
+        cursor: pointer;
+    }
+
+    input{
+        outline: 0;
+    }
 
 </style>
 {% endblock style %}
