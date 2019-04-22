@@ -41,15 +41,15 @@ Clone The repository, install dependencies and run.
 There is 2 types of accounts
 
 1. User
-   - cant see other users or others projects
-   - see only his projects
-   - make comment on changes
-   - edit the comment
+      - cant see other users or others projects
+      - see only his projects
+      - make comment on changes
+      - edit the comment
 1. Admin
-   - List of all users and projects in homepage
-   - create new user
-   - search in users and projects
-   - create project
-   - ( create | update | edit ) versions
-   - ( create | update | edit ) changes
-   - replay for user comment
+      - List of all users and projects in homepage
+      - create new user
+      - search in users and projects
+      - create project
+      - ( create | update | edit ) versions
+      - ( create | update | edit ) changes
+      - replay for user comment
