@@ -25,10 +25,11 @@ $ source env/bin/activate && cd env
 Clone The repository, install dependencies and run.
 
 ``` bash
-(env) $ git clone https://github.com/mohamed17717/changes-log src && cd src
+(env) $ git clone https://mohamed17717@bitbucket.org/mohamed17717/changes-log.git src && cd src
 (env) $ pip install -r requirements.txt
 (env) $ python manage.py makemigrations
 (env) $ python manage.py migrate
+(env) $ python manage.py createsuperuser
 (env) $ python manage.py runserver
 ```
 
