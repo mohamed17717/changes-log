@@ -22,7 +22,7 @@ virtualenv -p python3 env
 source env/bin/activate && cd env
 ```
 
-#### Clone The repository, install dependencies and run.
+#### Clone The repository, install dependencies and run
 
 ``` bash
 (env) $ git clone https://mohamed17717@bitbucket.org/mohamed17717/changes-log.git src && cd src
@@ -46,7 +46,7 @@ source env/bin/activate && cd env
       2. see only his projects
       3. make comment on changes
       4. edit the comment
-1. **Admin**
+2. **Admin**
       1. List of all users and projects in homepage
       2. create new user
       3. search in users and projects
