@@ -6,6 +6,10 @@ Make the clients following to the project changes
 
 you can check out a live demo [of it here!](https://h-changeslog-5qt8mm16v6.herokuapp.com/) hosted on [heroku](https://heroku.com)
 
+> *username*: err
+>
+> *password*: 12345
+
 ## Getting Started
 
 ### Prerequisites
